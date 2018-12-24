@@ -31,31 +31,35 @@ const unsubscribe = store.subscribe(() => {
   console.log(store.getState());
 })
 
-store.dispatch({
+const incrementCount = ({ incrementBy = 1} = {}) => ({
   type: 'INCREMENT',
-  incrementBy: 5,
-});
-
-store.dispatch({
-  type: 'INCREMENT',
-});
-
-store.dispatch({
-  type: 'RESET'
-});
-
-store.dispatch({
-  type: 'DECREMENT',
-  decrementBy: 10,
-});
-
-store.dispatch({
-  type: 'DECREMENT'
-});
-
-store.dispatch({
-  type: 'SET',
-  count: 101,
+  incrementBy,
 })
+
+const decrementCount = ({ decrementBy = 1} = {}) => ({
+  type: 'DECREMENT',
+  decrementBy,
+})
+
+const resetCount = () => ({
+  type: 'RESET',
+});
+
+const setCount = ({count}) => ({
+  type: 'SET',
+  count
+});
+
+store.dispatch(incrementCount({ incrementBy: 5}));
+
+store.dispatch(incrementCount());
+
+store.dispatch(resetCount());
+
+store.dispatch(decrementCount({decrementBy: 10}));
+
+store.dispatch(decrementCount());
+
+store.dispatch(setCount({count: 101}));
 
 unsubscribe();
